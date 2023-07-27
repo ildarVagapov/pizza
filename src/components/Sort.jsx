@@ -33,7 +33,7 @@ export const Sort = () => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span onClick={openPopan} >{sortArr[activeSort]}</span>
+				<span onClick={() => setOpen(!open)} >{sortArr[activeSort]}</span>
 			</div>
 			<div className="sort__popup">
 				{
