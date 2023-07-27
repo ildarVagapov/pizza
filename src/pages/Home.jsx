@@ -25,7 +25,7 @@ export const Home = () => {
 			<div className="content__items">
 				{
 					loading
-						? Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} />)
+						? Array.from({ length: 8 }).map((_, i) => <Skeleton key={i} />)
 						: items.map((item, i) => <Pizza key={i} {...item} />)
 				}
 			</div>
