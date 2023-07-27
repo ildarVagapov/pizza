@@ -3,14 +3,16 @@ import { URL } from "../api"
 import { Categories } from "../components/Categoris"
 import { Sort } from "../components/Sort"
 import { Pizza } from "../components/Pizza"
+import { Skeleton } from "../components/Skeleton"
 
 export const Home = () => {
 	const [items, setItems] = useState([])
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		fetch(URL)
 			.then(res => res.json())
-			.then(data => setItems(data))
+			.then(data => setItems(data), setLoading(false))
 	}, [])
 
 	return (
@@ -21,7 +23,11 @@ export const Home = () => {
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			<div className="content__items">
-				{items.map((item, i) => <Pizza key={i} {...item} />)}
+				{
+					loading
+						? Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} />)
+						: items.map((item, i) => <Pizza key={i} {...item} />)
+				}
 			</div>
 		</div>
 	)
