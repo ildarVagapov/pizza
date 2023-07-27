@@ -3,9 +3,8 @@ import { useState } from "react"
 
 export const Pizza = (props) => {
 	const [activeSizes, setActiveSizes] = useState(0)
-	const toggleSizeClick = (i) => {
-		setActiveSizes(i)
-	}
+	const [activeTypes, setActiveTypes] = useState(null)
+	const typeName = ['Тонкое', 'Традиционное']
 
 	return (
 		<div className="pizza-block">
@@ -17,14 +16,17 @@ export const Pizza = (props) => {
 			<h4 className="pizza-block__title">{props.title}</h4>
 			<div className="pizza-block__selector">
 				<ul>
-					<li className="active">тонкое</li>
-					<li>традиционное</li>
+					{props.types.map((i) => {
+						return (
+							<li key={i} onClick={() => setActiveTypes(i)} className={activeTypes === i ? 'active' : ''}>{typeName[i]}</li>
+						)
+					})}
 				</ul>
 				<ul>
 					{
 						props.sizes.map((size, i) => {
 							return (
-								<li onClick={() => toggleSizeClick(i)} className={activeSizes === i && 'active'} >{size}</li>
+								<li key={i} onClick={() => setActiveSizes(i)} className={activeSizes === i ? 'active' : ''} >{size}</li>
 							)
 						})
 					}
