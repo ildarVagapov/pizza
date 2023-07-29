@@ -1,21 +1,17 @@
 import { useState } from "react"
 
-
-export const Sort = () => {
+export const Sort = ({ setSortItemPrice }) => {
 	const sortArr = ['популярности', 'цене', 'алфавиту']
 	const [open, setOpen] = useState(false)
 	const [activeSort, setActiveSort] = useState(0)
 
-	const openPopan = (i) => {
-		if (open) {
-			setOpen(false)
-		} else {
-			setOpen(true)
-		}
-	}
 	const addSort = (i) => {
 		setActiveSort(i)
 		setOpen(false)
+
+		if (activeSort === i) {
+			setSortItemPrice(true)
+		}
 	}
 	return (
 		<div className="sort">
