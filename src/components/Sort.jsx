@@ -1,18 +1,18 @@
 import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setSortId } from "../redux/filter/slice"
 
-export const Sort = ({ setSortItemPrice }) => {
+export const Sort = () => {
 	const sortArr = ['популярности', 'цене', 'алфавиту']
 	const [open, setOpen] = useState(false)
-	const [activeSort, setActiveSort] = useState(0)
+	const dispatch = useDispatch()
+	const sortId = useSelector((state) => state.filter.sortId)
 
 	const addSort = (i) => {
-		setActiveSort(i)
+		dispatch(setSortId(i))
 		setOpen(false)
-
-		if (activeSort === i) {
-			setSortItemPrice(true)
-		}
 	}
+
 	return (
 		<div className="sort">
 			<div className="sort__label">
@@ -29,14 +29,14 @@ export const Sort = ({ setSortItemPrice }) => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span onClick={() => setOpen(!open)} >{sortArr[activeSort]}</span>
+				<span onClick={() => setOpen(!open)} >{sortArr[sortId]}</span>
 			</div>
 			<div className="sort__popup">
 				{
 					open && <ul>
 						{
 							sortArr.map((item, i) => (
-								<li onClick={() => addSort(i)} className={activeSort === i ? 'active' : ''} key={i}>{item}</li>
+								<li onClick={() => addSort(i)} className={sortId === i ? 'active' : ''} key={i}>{item}</li>
 							))
 						}
 					</ul>
