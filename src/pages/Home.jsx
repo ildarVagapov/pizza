@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { URL, sortPrice } from "../api"
+import { URL } from "../api"
 import { Categories } from "../components/Categoris"
 import { Sort } from "../components/Sort"
 import { Pizza } from "../components/Pizza"
@@ -10,22 +10,19 @@ export const Home = () => {
 	const [items, setItems] = useState([])
 	const [loading, setLoading] = useState(true)
 	const categoryId = useSelector((state) => state.filter.categoryId)
-	const sortId = useSelector((state) => state.filter.sortId)
-	const sortByPrice = '?sortBy=price&order=asc'
-	const sortByTitle = '?sortBy=title&order=asc'
-	const sortByRating = '?sortBy=rating&order=asc'
-	const filterCategory = '?category='
+	const sort = useSelector(state => state.filter.sort)
+	const categoryPizzas = categoryId > 0 ? `category=${categoryId}` : ''
+	const sortPizzas = `&sortBy=${sort.sortProperty}&order=asc`
 
 	useEffect(() => {
 		setLoading(true)
-		// fetch(`${URL}?category=${categoryId === 0 ? '' : categoryId}`)
-		fetch(`${URL}${sortId === 1 ? sortByPrice : ''}${sortId === 2 ? sortByTitle : ''}${sortId === 0 ? sortByTitle : ''}`)
+		fetch(`${URL}${categoryPizzas}${sortPizzas}`)
 			.then(res => res.json())
 			.then(data => {
 				setItems(data)
 				setLoading(false)
 			})
-	}, [categoryId, sortId])
+	}, [categoryId, sort])
 
 	return (
 		<div className="container">

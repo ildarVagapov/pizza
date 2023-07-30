@@ -1,15 +1,21 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { setSortId } from "../redux/filter/slice"
+import { setSort } from "../redux/filter/slice"
 
 export const Sort = () => {
-	const sortArr = ['популярности', 'цене', 'алфавиту']
 	const [open, setOpen] = useState(false)
-	const dispatch = useDispatch()
-	const sortId = useSelector((state) => state.filter.sortId)
 
-	const addSort = (i) => {
-		dispatch(setSortId(i))
+	const sortArr = [
+		{ name: 'популярности', sortProperty: 'rating' },
+		{ name: 'цене', sortProperty: 'price' },
+		{ name: 'алфавиту', sortProperty: 'title' }
+	]
+
+	const dispatch = useDispatch()
+	const sort = useSelector((state) => state.filter.sort)
+
+	const addSort = (obj) => {
+		dispatch(setSort(obj))
 		setOpen(false)
 	}
 
@@ -29,14 +35,14 @@ export const Sort = () => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span onClick={() => setOpen(!open)} >{sortArr[sortId]}</span>
+				<span onClick={() => setOpen(!open)} >{sort.name}</span>
 			</div>
 			<div className="sort__popup">
 				{
 					open && <ul>
 						{
-							sortArr.map((item, i) => (
-								<li onClick={() => addSort(i)} className={sortId === i ? 'active' : ''} key={i}>{item}</li>
+							sortArr.map((obj, i) => (
+								<li onClick={() => addSort(obj)} className={sort.sortProperty === obj.sortProperty ? 'active' : ''} key={i}>{obj.name}</li>
 							))
 						}
 					</ul>
