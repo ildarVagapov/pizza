@@ -6,27 +6,31 @@ import { Pizza } from "../components/Pizza"
 import { Skeleton } from "../components/Skeleton"
 import { useDispatch, useSelector } from "react-redux"
 import { setPizza } from "../redux/pizzas/slice"
+import { selectCategoryId, selectSearch, selectSort } from "../redux/filter/selectors"
+import { selectPizza } from "../redux/pizzas/selectorls"
+import axios from "axios"
 
 export const Home = () => {
 	const [loading, setLoading] = useState(true)
-	const pizza = useSelector(state => state.pizza.items)
-	const categoryId = useSelector((state) => state.filter.categoryId)
-	const sort = useSelector(state => state.filter.sort)
-	const search = useSelector(state => state.filter.search)
+	const pizza = useSelector(selectPizza)
+	const categoryId = useSelector(selectCategoryId)
+	const sort = useSelector(selectSort)
+	const search = useSelector(selectSearch)
 	const categoryPizzas = categoryId > 0 ? `category=${categoryId}` : ''
 	const sortPizza = `&sortBy=${sort.sortProperty}&order=asc`
 	const searchPizza = `&search=${search}`
 	const dispatch = useDispatch()
 
+
 	useEffect(() => {
 		setLoading(true)
-		fetch(`${URL}${categoryPizzas}${sortPizza}${searchPizza}`)
-			.then(res => res.json())
-			.then(data => {
-				dispatch(setPizza(data))
+		axios.get(`${URL}${categoryPizzas}${sortPizza}${searchPizza}`)
+			.then(res => {
+				dispatch(setPizza(res.data))
 				setLoading(false)
 			})
-	}, [categoryId, sort, searchPizza])
+	}, [categoryPizzas, sortPizza, searchPizza])
+
 
 	return (
 		<div className="container">

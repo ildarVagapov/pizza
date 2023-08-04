@@ -1,17 +1,28 @@
 import s from './Search.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setSearch } from '../../redux/filter/slice'
 import { useCallback, useRef, useState } from 'react'
 import debounce from 'lodash.debounce'
+import { useSearchParams } from 'react-router-dom'
 
 export const Search = () => {
 	const [value, setValue] = useState('')
-	const search = useSelector(state => state.filter.search)
 	const dispatch = useDispatch()
 	const inputRef = useRef()
 
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	function handleSubmit(event) {
+		// The serialize function here would be responsible for
+		// creating an object of { key: value } pairs from the
+		// fields in the form that make up the query.
+		const params = event.target
+		setSearchParams(params);
+		console.log(params)
+	}
 	const clearSearch = () => {
 		dispatch(setSearch(''))
+		setValue('')
 		inputRef.current.focus()
 	}
 
@@ -65,10 +76,11 @@ export const Search = () => {
 				ref={inputRef}
 				className={s.input}
 				placeholder="Поиск пиццы..."
-				onChange={(e) => onChangeInput(e.target.value)}
+				// onChange={(e) => onChangeInput(e.target.value)}
+				onChange={(e) => handleSubmit(e.target.value)}
 				value={value}
 			/>
-			{search &&
+			{value &&
 				<svg
 					className={s.clearIcon}
 					onClick={() => clearSearch()}

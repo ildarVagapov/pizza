@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setSort } from "../redux/filter/slice"
+import { selectSort } from "../redux/filter/selectors"
 
 export const Sort = () => {
 	const [open, setOpen] = useState(false)
@@ -12,7 +13,7 @@ export const Sort = () => {
 	]
 
 	const dispatch = useDispatch()
-	const sort = useSelector((state) => state.filter.sort)
+	const sort = useSelector(selectSort)
 
 	const addSort = (obj) => {
 		dispatch(setSort(obj))
