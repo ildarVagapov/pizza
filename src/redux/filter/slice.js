@@ -6,7 +6,6 @@ const initialState = {
 	sort: {
 		name: 'популярные ', sortProperty: 'rating'
 	},
-
 }
 
 const filterSlice = createSlice({

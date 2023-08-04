@@ -3,23 +3,12 @@ import { useDispatch } from 'react-redux'
 import { setSearch } from '../../redux/filter/slice'
 import { useCallback, useRef, useState } from 'react'
 import debounce from 'lodash.debounce'
-import { useSearchParams } from 'react-router-dom'
 
 export const Search = () => {
 	const [value, setValue] = useState('')
 	const dispatch = useDispatch()
 	const inputRef = useRef()
 
-	const [searchParams, setSearchParams] = useSearchParams();
-
-	function handleSubmit(event) {
-		// The serialize function here would be responsible for
-		// creating an object of { key: value } pairs from the
-		// fields in the form that make up the query.
-		const params = event.target
-		setSearchParams(params);
-		console.log(params)
-	}
 	const clearSearch = () => {
 		dispatch(setSearch(''))
 		setValue('')
@@ -76,8 +65,7 @@ export const Search = () => {
 				ref={inputRef}
 				className={s.input}
 				placeholder="Поиск пиццы..."
-				// onChange={(e) => onChangeInput(e.target.value)}
-				onChange={(e) => handleSubmit(e.target.value)}
+				onChange={(e) => onChangeInput(e.target.value)}
 				value={value}
 			/>
 			{value &&
