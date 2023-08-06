@@ -1,10 +1,14 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { setItems } from "../redux/cart/slice"
 
 
 export const Pizza = (props) => {
+	const typeName = ['Тонкое', 'Традиционное']
 	const [activeSizes, setActiveSizes] = useState(0)
 	const [activeTypes, setActiveTypes] = useState(null)
-	const typeName = ['Тонкое', 'Традиционное']
+
+	const dispatch = useDispatch()
 
 	return (
 		<div className="pizza-block">
@@ -34,7 +38,7 @@ export const Pizza = (props) => {
 			</div>
 			<div className="pizza-block__bottom">
 				<div className="pizza-block__price">{props.price} р</div>
-				<div className="button button--outline button--add">
+				<div onClick={() => dispatch(setItems(props))} className="button button--outline button--add">
 					<svg
 						width="12"
 						height="12"
@@ -47,7 +51,7 @@ export const Pizza = (props) => {
 							fill="white"
 						/>
 					</svg>
-					<span>Добавить</span>
+					<span >Добавить</span>
 					<i>0</i>
 				</div>
 			</div>
