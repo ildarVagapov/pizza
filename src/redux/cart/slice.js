@@ -1,18 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const totalPriceCalc = (it, itCount) => {
-	const items = it.reduce((total, product) => total + product.price, 0)
-	const itemCount = itCount.reduce((total, product) => total + product.price, 0)
-	const total = items + itemCount
-	return total
-}
-
 const initialState = {
 	items: [],
-	totalPrice: 0
+	totalPrice: 0,
+	numberProduct: 0
 }
 
-const pizzaSlice = createSlice({
+const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
@@ -27,17 +21,19 @@ const pizzaSlice = createSlice({
 			} else {
 				findItem.count++;
 			}
-			state.totalPrice = state.items.reduce((total, product) => total + product.price, 0)
 
-			// state.totalPrice = totalPriceCalc(state.items, state.items.count)
+			state.totalPrice = state.items.reduce((sum, obj) => obj.price * obj.count + sum, 0)
+			state.numberProduct = state.items.reduce((sum, obj) => sum + obj.count, 0)
 		},
 		cleartItems: (state) => {
 			state.items = []
 			state.totalPrice = 0
+			state.numberProduct = 0
 		},
 		removeItem: (state, action) => {
 			state.items = state.items.filter((obj) => obj.id !== action.payload)
-			state.totalPrice = state.items.reduce((total, product) => total + product.price, 0)
+			state.totalPrice = state.items.reduce((sum, obj) => obj.price * obj.count + sum, 0)
+			state.numberProduct = state.items.reduce((sum, obj) => sum + obj.count, 0)
 		},
 		decrement: (state, action) => {
 			const findItem = state.items.find((obj) => obj.id === action.payload);
@@ -46,10 +42,15 @@ const pizzaSlice = createSlice({
 				findItem.count--;
 				state.items = state.items.filter(obj => obj.count !== 0)
 			}
-			state.totalPrice = state.items.reduce((total, product) => total + product.price, 0)
+			state.totalPrice = state.items.reduce((sum, obj) => obj.price * obj.count + sum, 0)
+			state.numberProduct = state.items.reduce((sum, obj) => sum + obj.count, 0)
 		},
 	},
 })
 
-export const { setItems, cleartItems, removeItem, decrement } = pizzaSlice.actions
-export const cartReducer = pizzaSlice.reducer
+
+
+
+
+export const { setItems, cleartItems, removeItem, decrement } = cartSlice.actions
+export const cartReducer = cartSlice.reducer

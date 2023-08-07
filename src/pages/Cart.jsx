@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { cleartItems, decrement, removeItem, setItems } from "../redux/cart/slice"
 
 export const Cart = () => {
-	const { items, totalPrice } = useSelector(state => state.cart)
+	const { items, totalPrice, numberProduct } = useSelector(state => state.cart)
 	const dispatch = useDispatch()
 
 	return (
@@ -115,7 +115,7 @@ export const Cart = () => {
 											</div>
 										</div>
 										<div className="cart__item-price">
-											<b>770 ₽</b>
+											<b>{item.price * item.count} ₽</b>
 										</div>
 										<div onClick={() => dispatch(removeItem(item.id))} className="cart__item-remove">
 											<div className="button button--outline button--circle">
@@ -140,7 +140,7 @@ export const Cart = () => {
 							<div className="cart__bottom-details">
 								<span>
 									{' '}
-									Всего пицц: <b>{items.length}</b>{' '}
+									Всего пицц: <b>{numberProduct}</b>{' '}
 								</span>
 								<span>
 									{' '}

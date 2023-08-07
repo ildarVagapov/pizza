@@ -4,7 +4,7 @@ import { Search } from './Search/Search'
 import { useSelector } from 'react-redux'
 
 export const Header = () => {
-	const { totalPrice, items } = useSelector((state) => state.cart)
+	const { totalPrice, numberProduct } = useSelector((state) => state.cart)
 
 	return (
 		<div className="header">
@@ -50,7 +50,7 @@ export const Header = () => {
 							// stroke-linejoin="round"
 							/>
 						</svg>
-						<span>{items.length}</span>
+						<span>{numberProduct}</span>
 					</Link>
 				</div>
 			</div>
