@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { Route, Routes } from 'react-router-dom';
 import { NotFound } from './pages/NotFound';
 import { Cart } from './pages/Cart';
+import { FullPizza } from './pages/FullPizza';
 
 export const App = () => {
 	return (
@@ -14,6 +15,7 @@ export const App = () => {
 					<Routes>
 						<Route path='/' element={<Home />} />
 						<Route path='/cart' element={<Cart />} />
+						<Route path='/fullpizza/:id' element={<FullPizza />} />
 						<Route path='*' element={<NotFound />} />
 					</Routes>
 				</div>

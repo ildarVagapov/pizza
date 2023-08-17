@@ -9,6 +9,7 @@ export const fetchPizza = createAsyncThunk('pizza/FetchData', async (params) => 
 })
 
 const initialState = {
+	fullPizza: null,
 	items: [],
 	status: '' //  panding, fulfilled, error ,
 }
@@ -19,6 +20,9 @@ const pizzaSlice = createSlice({
 	reducers: {
 		setPizza: (state, action) => {
 			state.items = action.payload;
+		},
+		setFullPizza: (state, action) => {
+			state.fullPizza = action.payload
 		}
 	},
 	extraReducers: {
@@ -37,5 +41,5 @@ const pizzaSlice = createSlice({
 	}
 })
 
-export const { setPizza } = pizzaSlice.actions
+export const { setPizza, setFullPizza } = pizzaSlice.actions
 export const pizzaReducer = pizzaSlice.reducer

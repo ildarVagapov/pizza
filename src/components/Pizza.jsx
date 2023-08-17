@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { setItems } from "../redux/cart/slice"
+import { Link } from "react-router-dom"
 
 
 export const Pizza = (props) => {
@@ -9,15 +10,16 @@ export const Pizza = (props) => {
 	const [activeTypes, setActiveTypes] = useState(null)
 
 	const dispatch = useDispatch()
-
 	return (
 		<div className="pizza-block">
-			<img
-				className="pizza-block__image"
-				src={props.imageUrl}
-				alt={props.title}
-			/>
-			<h4 className="pizza-block__title">{props.title}</h4>
+			<Link to={`/fullpizza/${props.id}`}>
+				<img
+					className="pizza-block__image"
+					src={props.imageUrl}
+					alt={props.title}
+				/>
+				<h4 className="pizza-block__title">{props.title}</h4>
+			</Link>
 			<div className="pizza-block__selector">
 				<ul>
 					{props.types.map((i) => {
