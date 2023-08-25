@@ -3,8 +3,16 @@ import logo from '../assets/img/pizza-logo.svg'
 import { Search } from './Search/Search'
 import { useSelector } from 'react-redux'
 
-export const Header = () => {
-	const { totalPrice, numberProduct } = useSelector((state) => state.cart)
+export const Header: React.FC = () => {
+
+	interface RootState {
+		cart: {
+			totalPrice: number;
+			numberProduct: number;
+		}
+	}
+
+	const { totalPrice, numberProduct } = useSelector((state: RootState) => state.cart)
 
 	return (
 		<div className="header">

@@ -6,7 +6,7 @@ import { NotFound } from './pages/NotFound';
 import { Cart } from './pages/Cart';
 import { FullPizza } from './pages/FullPizza';
 
-export const App = () => {
+export const App: React.FC = () => {
 	return (
 		< div className="App" >
 			<div className="wrapper">

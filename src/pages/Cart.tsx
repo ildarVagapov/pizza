@@ -4,7 +4,24 @@ import { useDispatch, useSelector } from "react-redux"
 import { cleartItems, decrement, removeItem, setItems } from "../redux/cart/slice"
 
 export const Cart = () => {
-	const { items, totalPrice, numberProduct } = useSelector(state => state.cart)
+
+	type Item = {
+		id: number;
+		imageUrl: string;
+		title: string;
+		price: number;
+		count: number;
+	};
+
+	interface RootState {
+		cart: {
+			items: Item[];
+			totalPrice: number;
+			numberProduct: number;
+		}
+	}
+
+	const { items, totalPrice, numberProduct } = useSelector((state: RootState) => state.cart)
 	const dispatch = useDispatch()
 
 	return (

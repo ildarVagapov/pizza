@@ -3,8 +3,17 @@ import { useDispatch, useSelector } from "react-redux"
 import { setItems } from "../redux/cart/slice"
 import { Link } from "react-router-dom"
 
-
-export const Pizza = (props) => {
+type PizzaProps = {
+	id: string,
+	title: string,
+	imageUrl: string,
+	types: [],
+	sizes: number[],
+	category: number,
+	price: number,
+	rating: number
+}
+export const Pizza: React.FC<PizzaProps> = (props) => {
 	const typeName = ['Тонкое', 'Традиционное']
 	const [activeSizes, setActiveSizes] = useState(0)
 	const [activeTypes, setActiveTypes] = useState(null)

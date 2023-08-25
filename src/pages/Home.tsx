@@ -9,17 +9,15 @@ import { selectPizza } from "../redux/pizzas/selectorls"
 import { selectFilter } from "../redux/filter/selectors"
 
 
-
-export const Home = () => {
+export const Home: React.FC = () => {
 	const { categoryId, sort, search } = useSelector(selectFilter)
 	const { status, items } = useSelector(selectPizza)
 	const dispatch = useDispatch()
-
 	const getPizza = () => {
 		const categoryPizzas = categoryId > 0 ? `category=${categoryId}` : ''
 		const sortPizza = `&sortBy=${sort.sortProperty}&order=asc`
 		const searchPizza = `&search=${search}`
-
+		//@ts-ignore
 		dispatch(fetchPizza({ categoryPizzas, sortPizza, searchPizza }))
 	}
 
@@ -36,7 +34,7 @@ export const Home = () => {
 			<h2 className="content__title">Все пиццы</h2>
 			<div className="content__items">
 				{status === 'loading' && Array.from({ length: 8 }).map((_, i) => <Skeleton key={i} />)}
-				{status === 'success' && items.map((item, i) => <Pizza key={i} {...item} />)}
+				{status === 'success' && items.map((item: any, i: number) => <Pizza  {...item} key={i} />)}
 				{status === 'error' && <h5>error</h5>}
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 import s from './NotFoundBlockl.module.scss'
 
-export const NotFoundBlock = () => {
+export const NotFoundBlock: React.FC = () => {
 	return (
 		<div className={s.root}>
 			<h1>
