@@ -17,7 +17,9 @@ interface RootState {
 	}
 }
 
-export const selectPizza = (state:RootState) => state.pizza
+
+
+export const selectPizza = (state: RootState) => state.pizza
 
 // export const selectItems = state => state.pizza.items
 // export const selectStatus = state => state.pizza.status
