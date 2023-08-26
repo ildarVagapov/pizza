@@ -3,23 +3,26 @@ import { Categories } from "../components/Categoris"
 import { Sort } from "../components/Sort"
 import { Pizza } from "../components/Pizza"
 import { Skeleton } from "../components/Skeleton"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { fetchPizza } from "../redux/pizzas/slice"
 import { selectPizza } from "../redux/pizzas/selectorls"
 import { selectFilter } from "../redux/filter/selectors"
+import { useAppDispatch } from "../redux/store"
 
 
 export const Home: React.FC = () => {
+
 	const { categoryId, sort, search } = useSelector(selectFilter)
 	const { status, items } = useSelector(selectPizza)
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
+
 	const getPizza = () => {
 		const categoryPizzas = categoryId > 0 ? `category=${categoryId}` : ''
 		const sortPizza = `&sortBy=${sort.sortProperty}&order=asc`
 		const searchPizza = `&search=${search}`
-		//@ts-ignore
 		dispatch(fetchPizza({ categoryPizzas, sortPizza, searchPizza }))
 	}
+
 
 	useEffect(() => {
 		getPizza()
