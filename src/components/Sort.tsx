@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setSort } from "../redux/filter/slice"
 import { selectSort } from "../redux/filter/selectors"
 
-export const Sort: React.FC = () => {
+export const Sort: React.FC = React.memo(() => {
 	const [open, setOpen] = useState(false)
 
 	type objSort = {
@@ -69,4 +69,4 @@ export const Sort: React.FC = () => {
 			</div>
 		</div >
 	)
-}
+})

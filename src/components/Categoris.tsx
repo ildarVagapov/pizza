@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
 import { setCategoryId } from "../redux/filter/slice"
 import { selectCategoryId } from "../redux/filter/selectors"
+import React from "react"
 
-export const Categories: React.FC = () => {
+export const Categories: React.FC = React.memo(() => {
 	const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
 	const categoryId = useSelector(selectCategoryId)
 	const dispatch = useDispatch()
@@ -18,10 +19,10 @@ export const Categories: React.FC = () => {
 	))
 
 	return (
-		<div className="categories">
+		<div className="categories" >
 			<ul>
 				{itemCategoris}
 			</ul>
-		</div>
+		</div >
 	)
-}
+})

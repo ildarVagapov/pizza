@@ -23,7 +23,6 @@ export const Home: React.FC = () => {
 		dispatch(fetchPizza({ categoryPizzas, sortPizza, searchPizza }))
 	}
 
-
 	useEffect(() => {
 		getPizza()
 	}, [categoryId, sort, search])

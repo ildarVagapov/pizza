@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { cleartItems, decrement, removeItem, setItems } from "../redux/cart/slice"
 
 export const Cart = () => {
-
+	console.log('render Cart')
 	type Item = {
 		id: number;
 		imageUrl: string;
